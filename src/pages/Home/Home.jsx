@@ -3,10 +3,21 @@ import "./Home.css";
 import { category } from "../../Category";
 import Product from "../../components/Product/Product";
 import { dummydata } from "../../dummyData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({searchTerm}) => {
   const [cate, setCate] = useState(dummydata);
+
+  useEffect(() => {
+  if (searchTerm.trim() === "") {
+    setCate(dummydata);
+  } else {
+    const filtered = dummydata.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setCate(filtered);
+  }
+}, [searchTerm]);
 
   function filterProducts(category) {
     const updateData = dummydata.filter((item) => item.category === category);

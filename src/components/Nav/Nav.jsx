@@ -5,13 +5,12 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import "./Nav.css";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
-
-const Nav = () => {
-  let dispatch = useDispatch()
-  let items = useSelector(state => state)
-  console.log(items);
-
+const Nav = ({ setSearchTerm }) => {
+  let dispatch = useDispatch();
+  let items = useSelector((state) => state);
+  const [inputValue, setInputValue] = useState("");
   return (
     <div className="nav">
       <div className="top-nav">
@@ -22,14 +21,26 @@ const Nav = () => {
           </div>
         </NavLink>
 
-        <form className="search-box">
-          <input type="text" placeholder="Search Items..." />
+        <form
+          className="search-box"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSearchTerm(inputValue);
+            setInputValue("");
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Search Items..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
           <button>
             <IoSearchOutline />
           </button>
         </form>
 
-        <Link to='/cart' className="cart-box">
+        <Link to="/cart" className="cart-box">
           <IoCartOutline />
           <span>{items.cart.length}</span>
         </Link>
