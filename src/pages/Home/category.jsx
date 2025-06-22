@@ -1,6 +1,6 @@
 import bg from "../../assets/bg0.gif";
 import "./Home.css";
-import { category } from "../../Category";
+import { category } from "../../category";
 import Product from "../../components/Product/Product";
 import { dummydata } from "../../dummyData";
 import { useEffect, useState } from "react";
