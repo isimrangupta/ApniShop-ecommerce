@@ -1,9 +1,9 @@
 import './CartCard.css'
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from 'react-redux';
-import { RemoveItem } from '../../redux/cartSlice';
+import { DecrementQuantity, IncrementQuantity, RemoveItem } from '../../redux/cartSlice';
 
-const CartCard = ({name, price, image, id}) => {
+const CartCard = ({name, price, image, id, quantity}) => {
   let dispatch = useDispatch()
   return (
     <div className='Cartcard'>
@@ -11,11 +11,20 @@ const CartCard = ({name, price, image, id}) => {
         <img src={image} alt="" />
         <div className="name-price">
           <span>{name}</span>
-          <span>Rs {price}</span>
+          <span>Rs {price * quantity}</span>
         </div>
       </div>
 
       <div className='right-card'>
+ <div className="quantity-controls">
+          <button onClick={() => dispatch(DecrementQuantity(id))}>-</button>
+          <span>{quantity}</span>
+          <button onClick={() => dispatch(IncrementQuantity(id))}>+</button>
+        </div>
+
+
+
+
         <button onClick={() =>{
           dispatch(RemoveItem(id))
            alert("Product Removed Successfully!")
